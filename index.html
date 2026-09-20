@@ -18,7 +18,6 @@
       --gold-primary: #C59B3F;
       --gold-light: #F4E2B8;
       --gold-dark: #8F691E;
-      --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #F5E6AB 50%, #AA771C 100%);
       --text-dark: #2F221E;
       --text-muted: #6E5D53;
     }
@@ -43,7 +42,7 @@
       position: relative;
     }
 
-    /* Full-screen Petals Animation Canvas */
+    /* Full-screen Petals Canvas */
     #petalsCanvas {
       position: fixed;
       top: 0;
@@ -78,7 +77,6 @@
 
     .music-btn:hover {
       transform: translateY(-2px) scale(1.03);
-      box-shadow: 0 8px 22px rgba(197, 155, 63, 0.35);
     }
 
     /* Envelope Hero Section */
@@ -93,81 +91,88 @@
 
     .envelope-wrapper {
       position: relative;
-      width: 330px;
-      height: 230px;
+      width: 320px;
+      height: 220px;
       cursor: pointer;
+      perspective: 1000px;
+      margin: 0 auto;
       transition: transform 0.4s ease;
-      perspective: 1200px;
     }
 
     .envelope-wrapper:hover {
-      transform: translateY(-6px) scale(1.02);
+      transform: translateY(-5px);
     }
 
     .envelope {
       position: relative;
       width: 100%;
       height: 100%;
-      background: #F8ECE3;
+      background: #ecd5c5;
       border: 2px solid var(--gold-primary);
       border-radius: 12px;
-      box-shadow: 0 20px 45px rgba(80, 45, 30, 0.18);
-      overflow: visible;
+      box-shadow: 0 16px 36px rgba(80, 45, 30, 0.16);
+      overflow: hidden;
     }
 
-    /* Envelope Bottom Folds */
+    /* Left & Right Flaps inside */
     .envelope::before {
       content: '';
       position: absolute;
-      bottom: 0;
+      top: 0;
       left: 0;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 0 0 150px 330px;
-      border-color: transparent transparent #EED2C0 transparent;
-      z-index: 3;
-      border-bottom-left-radius: 10px;
-      border-bottom-right-radius: 10px;
+      width: 100%;
+      height: 100%;
+      clip-path: polygon(0 0, 0 100%, 50% 50%);
+      background: #f1dbce;
+      z-index: 2;
     }
 
     .envelope::after {
       content: '';
       position: absolute;
-      bottom: 0;
+      top: 0;
       right: 0;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 0 330px 150px 0;
-      border-color: transparent transparent #F8E2D2 transparent;
-      z-index: 3;
-      border-bottom-left-radius: 10px;
-      border-bottom-right-radius: 10px;
+      width: 100%;
+      height: 100%;
+      clip-path: polygon(100% 0, 100% 100%, 50% 50%);
+      background: #f7e6db;
+      z-index: 2;
     }
 
+    /* Bottom Flap */
+    .envelope-bottom-flap {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      clip-path: polygon(0 100%, 100% 100%, 50% 48%);
+      background: #ebd0be;
+      z-index: 3;
+    }
+
+    /* Top Flap (Opens) */
     .envelope-flap {
       position: absolute;
       top: 0;
       left: 0;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 135px 165px 0 165px;
-      border-color: #E2BFAB transparent transparent transparent;
+      width: 100%;
+      height: 100%;
+      clip-path: polygon(0 0, 100% 0, 50% 55%);
+      background: #debda6;
       transform-origin: top center;
-      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 4;
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));
     }
 
+    /* Wax Seal */
     .wax-seal {
       position: absolute;
-      top: 98px;
+      top: 52%;
       left: 50%;
-      transform: translateX(-50%);
-      width: 66px;
-      height: 66px;
+      transform: translate(-50%, -50%);
+      width: 62px;
+      height: 62px;
       background: radial-gradient(circle, #9A1F2B 0%, #5E0E15 100%);
       border-radius: 50%;
       border: 2px dashed #F1D495;
@@ -176,34 +181,25 @@
       justify-content: center;
       color: #FFF2DF;
       font-family: 'Cinzel Decorative', cursive;
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 700;
-      box-shadow: 0 6px 20px rgba(114, 28, 36, 0.45), inset 0 0 8px rgba(0,0,0,0.3);
+      box-shadow: 0 6px 18px rgba(114, 28, 36, 0.45);
       z-index: 6;
       animation: cute-bounce 2.2s infinite ease-in-out;
     }
 
     @keyframes cute-bounce {
-      0%, 100% { transform: translateX(-50%) scale(1); }
-      50% { transform: translateX(-50%) scale(1.06); }
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.06); }
     }
 
     .tap-hint {
-      margin-top: 30px;
+      margin-top: 25px;
       font-size: 13px;
-      letter-spacing: 2.5px;
+      letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--royal-maroon);
       font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      animation: pulseText 1.8s infinite;
-    }
-
-    @keyframes pulseText {
-      0%, 100% { opacity: 0.8; }
-      50% { opacity: 1; transform: scale(1.02); }
     }
 
     /* Open Envelope State */
@@ -213,16 +209,16 @@
     }
 
     .envelope-wrapper.open .wax-seal {
-      transform: translateX(-50%) scale(0);
       opacity: 0;
-      transition: all 0.4s ease;
+      transform: translate(-50%, -50%) scale(0);
+      transition: all 0.3s ease;
     }
 
     /* Main Royal Invitation Card Container */
     #wedding-card-container {
       display: none;
       width: 100%;
-      max-width: 680px;
+      max-width: 660px;
       opacity: 0;
       transform: translateY(40px) scale(0.96);
       transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
@@ -237,10 +233,9 @@
 
     .invitation-card {
       background: var(--card-ivory);
-      border: 2px solid var(--gold-primary);
-      box-shadow: 0 20px 50px rgba(110, 70, 40, 0.16), 0 0 0 6px #FFFDF9, 0 0 0 8px rgba(197, 155, 63, 0.35);
-      border-radius: 20px;
-      padding: 38px 24px;
+      box-shadow: 0 15px 40px rgba(110, 70, 40, 0.12);
+      border-radius: 16px;
+      padding: 36px 22px;
       position: relative;
       background-image: 
         radial-gradient(circle at 10% 10%, rgba(245, 213, 206, 0.25) 0%, transparent 40%),
@@ -249,27 +244,25 @@
       background-size: auto, auto, 18px 18px;
     }
 
-    /* Royal Arched Inner Frame */
+    /* Single Clean Gold Border */
     .inner-border {
       border: 1.5px solid var(--gold-primary);
-      padding: 30px 18px;
+      padding: 28px 16px;
       position: relative;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.55);
-      backdrop-filter: blur(2px);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.45);
     }
 
-    /* Floral Corner Ornaments */
     .corner-decor {
       position: absolute;
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
       border: 2px solid var(--gold-primary);
     }
-    .c-tl { top: 6px; left: 6px; border-right: none; border-bottom: none; border-top-left-radius: 6px; }
-    .c-tr { top: 6px; right: 6px; border-left: none; border-bottom: none; border-top-right-radius: 6px; }
-    .c-bl { bottom: 6px; left: 6px; border-right: none; border-top: none; border-bottom-left-radius: 6px; }
-    .c-br { bottom: 6px; right: 6px; border-left: none; border-top: none; border-bottom-right-radius: 6px; }
+    .c-tl { top: 6px; left: 6px; border-right: none; border-bottom: none; border-top-left-radius: 4px; }
+    .c-tr { top: 6px; right: 6px; border-left: none; border-bottom: none; border-top-right-radius: 4px; }
+    .c-bl { bottom: 6px; left: 6px; border-right: none; border-top: none; border-bottom-left-radius: 4px; }
+    .c-br { bottom: 6px; right: 6px; border-left: none; border-top: none; border-bottom-right-radius: 4px; }
 
     /* Heading & Ganesh Invocation */
     .ganesh-mantra {
@@ -278,20 +271,19 @@
       letter-spacing: 3px;
       color: var(--royal-maroon);
       font-weight: 600;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
 
     .ganesh-icon {
-      font-size: 34px;
+      font-size: 32px;
       display: block;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
       color: var(--gold-primary);
-      filter: drop-shadow(0 2px 4px rgba(197, 155, 63, 0.3));
     }
 
     .parents-section {
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
       font-size: 13.5px;
       color: var(--text-muted);
       line-height: 1.85;
@@ -304,11 +296,11 @@
       font-family: 'Playfair Display', serif;
     }
 
-    /* Cute & Royal Couple Header */
+    /* Couple Names */
     .couple-title {
       text-align: center;
-      margin: 25px 0;
-      padding: 15px 0;
+      margin: 22px 0;
+      padding: 14px 0;
       border-top: 1px dashed rgba(197, 155, 63, 0.4);
       border-bottom: 1px dashed rgba(197, 155, 63, 0.4);
       background: radial-gradient(ellipse at center, rgba(249, 235, 234, 0.6) 0%, transparent 80%);
@@ -316,16 +308,15 @@
 
     .groom, .bride {
       font-family: 'Great Vibes', cursive;
-      font-size: 48px;
+      font-size: 46px;
       color: var(--royal-maroon);
       line-height: 1.1;
-      text-shadow: 1px 1px 2px rgba(197, 155, 63, 0.2);
     }
 
     .alias {
       display: block;
       font-family: 'Playfair Display', serif;
-      font-size: 17px;
+      font-size: 16px;
       font-style: italic;
       color: var(--gold-dark);
       margin-top: 3px;
@@ -334,7 +325,7 @@
 
     .ampersand {
       font-family: 'Great Vibes', cursive;
-      font-size: 38px;
+      font-size: 36px;
       color: var(--gold-primary);
       margin: 2px 0;
       display: block;
@@ -344,28 +335,27 @@
       font-size: 12.5px;
       color: var(--text-muted);
       margin-top: 5px;
-      font-style: normal;
     }
 
     .cute-divider {
       text-align: center;
       color: var(--gold-primary);
-      font-size: 16px;
-      margin: 20px 0;
+      font-size: 15px;
+      margin: 18px 0;
       letter-spacing: 6px;
     }
 
     /* Carousel Section */
     .gallery-section {
-      margin: 28px 0;
+      margin: 26px 0;
       text-align: center;
     }
 
     .gallery-title {
       font-family: 'Playfair Display', serif;
-      font-size: 21px;
+      font-size: 20px;
       color: var(--royal-maroon);
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       font-weight: 600;
     }
 
@@ -375,10 +365,10 @@
       max-width: 480px;
       height: 310px;
       margin: 0 auto;
-      border-radius: 16px;
+      border-radius: 14px;
       overflow: hidden;
       border: 3px solid #FFF;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.14), 0 0 0 1.5px var(--gold-primary);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
     }
 
     .carousel-slide {
@@ -435,16 +425,16 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      margin-top: 16px;
-      padding: 10px 24px;
+      margin-top: 14px;
+      padding: 9px 22px;
       border-radius: 30px;
       background: linear-gradient(135deg, #FFF6F0 0%, #F8E7DB 100%);
-      border: 1.5px solid var(--gold-primary);
+      border: 1.2px solid var(--gold-primary);
       color: var(--royal-maroon);
       text-decoration: none;
       font-size: 13px;
       font-weight: 600;
-      box-shadow: 0 4px 14px rgba(197, 155, 63, 0.18);
+      box-shadow: 0 4px 14px rgba(197, 155, 63, 0.15);
       transition: all 0.3s ease;
     }
 
@@ -452,49 +442,46 @@
       background: var(--gold-primary);
       color: #fff;
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(197, 155, 63, 0.3);
     }
 
     /* Countdown Timer */
     .countdown-box {
       background: linear-gradient(135deg, #FFF9F5 0%, #FBECE2 100%);
-      border: 1.5px solid rgba(197, 155, 63, 0.45);
-      border-radius: 14px;
-      padding: 18px;
-      margin: 25px 0;
+      border: 1px solid rgba(197, 155, 63, 0.4);
+      border-radius: 12px;
+      padding: 16px;
+      margin: 24px 0;
       text-align: center;
-      box-shadow: 0 6px 18px rgba(197, 155, 63, 0.12);
     }
 
     .countdown-title {
-      font-size: 12px;
-      letter-spacing: 2.5px;
+      font-size: 11.5px;
+      letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--royal-maroon);
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       font-weight: 600;
     }
 
     .countdown-grid {
       display: flex;
       justify-content: center;
-      gap: 16px;
+      gap: 12px;
     }
 
     .count-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-width: 54px;
-      background: rgba(255, 255, 255, 0.85);
+      min-width: 52px;
+      background: rgba(255, 255, 255, 0.88);
       border: 1px solid var(--gold-light);
-      border-radius: 10px;
-      padding: 8px 6px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.04);
+      border-radius: 8px;
+      padding: 7px 4px;
     }
 
     .count-number {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 700;
       color: var(--royal-maroon);
       font-family: 'Playfair Display', serif;
@@ -505,25 +492,15 @@
       text-transform: uppercase;
       color: var(--text-muted);
       letter-spacing: 1px;
-      margin-top: 2px;
     }
 
     /* Timeline & Itinerary */
     .section-header {
       text-align: center;
       font-family: 'Playfair Display', serif;
-      font-size: 24px;
+      font-size: 22px;
       color: var(--royal-maroon);
-      margin: 30px 0 25px 0;
-      position: relative;
-    }
-
-    .section-header::after {
-      content: '❀';
-      display: block;
-      font-size: 15px;
-      color: var(--gold-primary);
-      margin-top: 4px;
+      margin: 28px 0 22px 0;
     }
 
     .timeline {
@@ -545,22 +522,21 @@
     .event-card {
       position: relative;
       margin-bottom: 26px;
-      padding-left: 22px;
+      padding-left: 20px;
     }
 
     .event-card::before {
       content: '🌸';
       position: absolute;
-      left: -19px;
+      left: -18px;
       top: 0px;
-      font-size: 14px;
-      line-height: 1;
+      font-size: 13px;
     }
 
     .event-date {
       font-size: 12px;
       font-weight: 600;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.2px;
       color: var(--gold-dark);
       text-transform: uppercase;
       margin-bottom: 3px;
@@ -568,14 +544,14 @@
 
     .event-name {
       font-family: 'Playfair Display', serif;
-      font-size: 19px;
+      font-size: 18px;
       font-weight: 700;
       color: var(--royal-maroon);
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
 
     .event-venue {
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 600;
       color: var(--text-dark);
     }
@@ -589,12 +565,11 @@
     .day-sublist {
       background: #FFF7F2;
       border: 1px solid #F1DEC9;
-      border-radius: 10px;
-      padding: 12px 16px;
-      margin: 10px 0;
-      font-size: 12.5px;
-      line-height: 1.8;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin: 8px 0;
+      font-size: 12px;
+      line-height: 1.75;
     }
 
     .day-sublist span {
@@ -611,7 +586,7 @@
       color: var(--royal-maroon);
       text-decoration: none;
       background: #FFF;
-      border: 1.2px solid var(--gold-primary);
+      border: 1px solid var(--gold-primary);
       padding: 5px 14px;
       border-radius: 20px;
       font-weight: 600;
@@ -627,8 +602,8 @@
     /* RSVP & Compliments */
     .compliments-section {
       text-align: center;
-      margin-top: 35px;
-      padding-top: 24px;
+      margin-top: 32px;
+      padding-top: 22px;
       border-top: 1px dashed var(--gold-primary);
     }
 
@@ -642,24 +617,23 @@
 
     .compliments-name {
       font-family: 'Playfair Display', serif;
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 700;
       color: var(--royal-maroon);
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
 
     .rsvp-box {
       background: linear-gradient(135deg, #FFFBF8 0%, #F9ECE4 100%);
-      border-radius: 14px;
-      padding: 18px;
+      border-radius: 12px;
+      padding: 16px;
       text-align: center;
-      border: 1.5px solid rgba(197, 155, 63, 0.4);
-      box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+      border: 1px solid rgba(197, 155, 63, 0.4);
     }
 
     .rsvp-title {
       font-size: 13px;
-      letter-spacing: 2.5px;
+      letter-spacing: 2px;
       font-weight: 700;
       color: var(--royal-maroon);
       margin-bottom: 12px;
@@ -668,7 +642,7 @@
     .rsvp-contacts {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 9px;
       font-size: 13px;
     }
 
@@ -678,7 +652,6 @@
       gap: 12px;
       align-items: center;
       color: var(--text-dark);
-      font-weight: 500;
     }
 
     .call-btn {
@@ -690,7 +663,6 @@
       border-radius: 20px;
       border: 1px solid var(--gold-primary);
       transition: all 0.2s ease;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.04);
     }
 
     .call-btn:hover {
@@ -701,39 +673,38 @@
 
     .closing-wishes {
       text-align: center;
-      margin-top: 28px;
+      margin-top: 26px;
       font-style: italic;
-      font-size: 14px;
+      font-size: 13.5px;
       color: var(--royal-maroon);
       font-family: 'Playfair Display', serif;
     }
 
     @media (max-width: 480px) {
       .envelope-wrapper {
-        width: 290px;
-        height: 205px;
+        width: 280px;
+        height: 190px;
+      }
+      .wax-seal {
+        width: 54px;
+        height: 54px;
+        font-size: 17px;
       }
       .groom, .bride {
-        font-size: 40px;
+        font-size: 38px;
       }
       .invitation-card {
-        padding: 24px 14px;
+        padding: 24px 12px;
       }
       .carousel-container {
-        height: 230px;
-      }
-      .countdown-grid {
-        gap: 8px;
-      }
-      .count-item {
-        min-width: 48px;
+        height: 220px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Fullscreen Petals & Confetti Shower Canvas -->
+  <!-- Rose Petals Shower Canvas -->
   <canvas id="petalsCanvas"></canvas>
 
   <!-- Floating Audio Button -->
@@ -750,6 +721,7 @@
   <div id="envelopeSection">
     <div class="envelope-wrapper" id="envelopeWrapper" onclick="openInvitation()">
       <div class="envelope">
+        <div class="envelope-bottom-flap"></div>
         <div class="envelope-flap"></div>
         <div class="wax-seal">PS</div>
       </div>
@@ -779,7 +751,7 @@
           <p>cordially invite you to celebrate the wedding ceremony of their beloved son</p>
         </div>
 
-        <!-- Couple Names (Cute & Royal Typography) -->
+        <!-- Couple Names -->
         <div class="couple-title">
           <div class="groom">Pratham Saxena</div>
           <div class="sub-parent">Son of Smt. Preeti Saxena & Shri Rajesh Saxena</div>
@@ -791,10 +763,9 @@
           <div class="sub-parent">Daughter of Smt. Shashi Sahu & Late Shri Manoj Kumar Sahu</div>
         </div>
 
-        <!-- Cute Floral Motif -->
         <div class="cute-divider">❦ ❀ ❦</div>
 
-        <!-- Engagement Photo Carousel -->
+        <!-- Photo Carousel -->
         <div class="gallery-section">
           <h4 class="gallery-title">Moments of Togetherness</h4>
           <div class="carousel-container">
@@ -812,7 +783,6 @@
             <button class="carousel-btn next-btn" onclick="nextSlide()" aria-label="Next Photo">❯</button>
           </div>
 
-          <!-- Direct Google Photos Album Link -->
           <div>
             <a href="https://photos.app.goo.gl/6U9MDo6ohzWVG9VJ8" target="_blank" rel="noopener noreferrer" class="album-link-btn">
               📸 View Full Engagement Album
@@ -885,7 +855,6 @@
             <div class="event-venue">📍 Utsav Resort</div>
             <div class="venue-address">Haibatpur, Shuklaganj, Unnao (Kanpur)</div>
             
-            <!-- Marriage Map Link -->
             <a href="https://maps.app.goo.gl/YzNa5Y3R7bDEckhcA" target="_blank" rel="noopener noreferrer" class="map-btn">
               🗺️ Open in Google Maps
             </a>
@@ -906,7 +875,6 @@
             <div class="event-venue">📍 Satkar Guest House</div>
             <div class="venue-address">Near Income Tax Office, City Center, Gwalior</div>
             
-            <!-- Reception Map Link -->
             <a href="https://maps.app.goo.gl/nRCCDfVQxDRHR8YQ7" target="_blank" rel="noopener noreferrer" class="map-btn">
               🗺️ Open in Google Maps
             </a>
@@ -944,7 +912,7 @@
   </div>
 
   <script>
-    /* --- Realistic Rose Petals Shower Animation --- */
+    /* --- Realistic Rose Petals Animation --- */
     const canvas = document.getElementById('petalsCanvas');
     const ctx = canvas.getContext('2d');
     let petals = [];
@@ -958,11 +926,11 @@
     resizeCanvas();
 
     const petalColors = [
-      { fill: '#F8BBD0', shadow: '#F48FB1' }, // Soft rose pink
-      { fill: '#F48FB1', shadow: '#EC407A' }, // Rich rose pink
-      { fill: '#FFCDD2', shadow: '#EF9A9A' }, // Blush pink
-      { fill: '#E57373', shadow: '#D32F2F' }, // Crimson petal
-      { fill: '#F5D77F', shadow: '#D4AF37' }  // Golden confetti flake
+      { fill: '#F8BBD0', shadow: '#F48FB1' },
+      { fill: '#F48FB1', shadow: '#EC407A' },
+      { fill: '#FFCDD2', shadow: '#EF9A9A' },
+      { fill: '#E57373', shadow: '#D32F2F' },
+      { fill: '#F5D77F', shadow: '#D4AF37' }
     ];
 
     class Petal {
@@ -992,14 +960,12 @@
         this.rotation += this.rotSpeed;
         this.flip += this.flipSpeed;
 
-        // If burst slowed down, transition to gentle falling
         if (this.gravity > 0 && this.speedY > 2.5) {
           this.gravity = 0;
           this.speedY = Math.random() * 1.6 + 1.2;
           this.speedX = (Math.random() - 0.5) * 2;
         }
 
-        // Wrap around top to bottom for gentle ongoing shower
         if (this.y > canvas.height + 40) {
           this.reset(false);
         }
@@ -1012,7 +978,6 @@
         ctx.scale(Math.cos(this.flip), 1);
         ctx.globalAlpha = this.opacity;
 
-        // Draw cute curved petal
         ctx.beginPath();
         ctx.moveTo(0, 0);
         ctx.bezierCurveTo(-this.size / 2, -this.size / 2, -this.size, this.size / 3, 0, this.size);
@@ -1031,11 +996,9 @@
 
     function triggerPetalShower() {
       petals = [];
-      // Initial celebratory burst of 75 petals from envelope center
       for (let i = 0; i < 75; i++) {
         petals.push(new Petal(true));
       }
-      // Ongoing gentle rain of 30 petals
       for (let i = 0; i < 30; i++) {
         petals.push(new Petal(false));
       }
@@ -1064,12 +1027,10 @@
       envelope.classList.add('open');
       playMusic();
 
-      // Start flower shower right when the envelope begins to open
       setTimeout(() => {
         triggerPetalShower();
       }, 300);
 
-      // Transition to card smoothly
       setTimeout(() => {
         envelopeSection.style.display = 'none';
         cardContainer.classList.add('visible');
@@ -1090,7 +1051,7 @@
         musicIcon.textContent = '🔊';
         musicText.textContent = 'Pause Music';
       }).catch(err => {
-        console.log("Audio waiting for user click permission:", err);
+        console.log("Waiting for user tap for audio:", err);
       });
     }
 
@@ -1133,7 +1094,7 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    /* --- Image Carousel Logic --- */
+    /* --- Carousel Logic --- */
     let currentSlide = 0;
     const slides = document.querySelectorAll('.carousel-slide');
 
@@ -1151,7 +1112,6 @@
       showSlide(currentSlide - 1);
     }
 
-    // Auto-advance carousel every 3.5 seconds
     setInterval(nextSlide, 3500);
   </script>
 </body>
