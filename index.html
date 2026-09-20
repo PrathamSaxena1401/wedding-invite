@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pratham & Tanishka | Royal Wedding Invitation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-cream: #FAF5EE;
+      --card-ivory: #FFFDF9;
+      --soft-rose: #F9EBEA;
+      --blush: #F5D5CE;
+      --royal-maroon: #721C24;
+      --gold-primary: #C59B3F;
+      --gold-light: #F4E2B8;
+      --gold-dark: #8F691E;
+      --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #F5E6AB 50%, #AA771C 100%);
+      --text-dark: #2F221E;
+      --text-muted: #6E5D53;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 30%, #FFF8F2 0%, #F2E3D5 100%);
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-dark);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 25px 12px;
+      position: relative;
+    }
+
+    /* Full-screen Petals Animation Canvas */
+    #petalsCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 99;
+    }
+
+    /* Floating Music Toggle */
+    .music-btn {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1.5px solid var(--gold-primary);
+      border-radius: 50px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--royal-maroon);
+      box-shadow: 0 6px 18px rgba(197, 155, 63, 0.25);
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+    }
+
+    .music-btn:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 8px 22px rgba(197, 155, 63, 0.35);
+    }
+
+    /* Envelope Hero Section */
+    #envelopeSection {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.8s ease-out;
+      z-index: 10;
+    }
+
+    .envelope-wrapper {
+      position: relative;
+      width: 330px;
+      height: 230px;
+      cursor: pointer;
+      transition: transform 0.4s ease;
+      perspective: 1200px;
+    }
+
+    .envelope-wrapper:hover {
+      transform: translateY(-6px) scale(1.02);
+    }
+
+    .envelope {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #F8ECE3;
+      border: 2px solid var(--gold-primary);
+      border-radius: 12px;
+      box-shadow: 0 20px 45px rgba(80, 45, 30, 0.18);
+      overflow: visible;
+    }
+
+    /* Envelope Bottom Folds */
+    .envelope::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 0 150px 330px;
+      border-color: transparent transparent #EED2C0 transparent;
+      z-index: 3;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+
+    .envelope::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 330px 150px 0;
+      border-color: transparent transparent #F8E2D2 transparent;
+      z-index: 3;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 135px 165px 0 165px;
+      border-color: #E2BFAB transparent transparent transparent;
+      transform-origin: top center;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 4;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));
+    }
+
+    .wax-seal {
+      position: absolute;
+      top: 98px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 66px;
+      height: 66px;
+      background: radial-gradient(circle, #9A1F2B 0%, #5E0E15 100%);
+      border-radius: 50%;
+      border: 2px dashed #F1D495;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFF2DF;
+      font-family: 'Cinzel Decorative', cursive;
+      font-size: 20px;
+      font-weight: 700;
+      box-shadow: 0 6px 20px rgba(114, 28, 36, 0.45), inset 0 0 8px rgba(0,0,0,0.3);
+      z-index: 6;
+      animation: cute-bounce 2.2s infinite ease-in-out;
+    }
+
+    @keyframes cute-bounce {
+      0%, 100% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.06); }
+    }
+
+    .tap-hint {
+      margin-top: 30px;
+      font-size: 13px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--royal-maroon);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      animation: pulseText 1.8s infinite;
+    }
+
+    @keyframes pulseText {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 1; transform: scale(1.02); }
+    }
+
+    /* Open Envelope State */
+    .envelope-wrapper.open .envelope-flap {
+      transform: rotateX(180deg);
+      z-index: 1;
+    }
+
+    .envelope-wrapper.open .wax-seal {
+      transform: translateX(-50%) scale(0);
+      opacity: 0;
+      transition: all 0.4s ease;
+    }
+
+    /* Main Royal Invitation Card Container */
+    #wedding-card-container {
+      display: none;
+      width: 100%;
+      max-width: 680px;
+      opacity: 0;
+      transform: translateY(40px) scale(0.96);
+      transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 10;
+    }
+
+    #wedding-card-container.visible {
+      display: block;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .invitation-card {
+      background: var(--card-ivory);
+      border: 2px solid var(--gold-primary);
+      box-shadow: 0 20px 50px rgba(110, 70, 40, 0.16), 0 0 0 6px #FFFDF9, 0 0 0 8px rgba(197, 155, 63, 0.35);
+      border-radius: 20px;
+      padding: 38px 24px;
+      position: relative;
+      background-image: 
+        radial-gradient(circle at 10% 10%, rgba(245, 213, 206, 0.25) 0%, transparent 40%),
+        radial-gradient(circle at 90% 90%, rgba(244, 226, 184, 0.25) 0%, transparent 40%),
+        radial-gradient(#F5E4D5 0.75px, transparent 0.75px);
+      background-size: auto, auto, 18px 18px;
+    }
+
+    /* Royal Arched Inner Frame */
+    .inner-border {
+      border: 1.5px solid var(--gold-primary);
+      padding: 30px 18px;
+      position: relative;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(2px);
+    }
+
+    /* Floral Corner Ornaments */
+    .corner-decor {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      border: 2px solid var(--gold-primary);
+    }
+    .c-tl { top: 6px; left: 6px; border-right: none; border-bottom: none; border-top-left-radius: 6px; }
+    .c-tr { top: 6px; right: 6px; border-left: none; border-bottom: none; border-top-right-radius: 6px; }
+    .c-bl { bottom: 6px; left: 6px; border-right: none; border-top: none; border-bottom-left-radius: 6px; }
+    .c-br { bottom: 6px; right: 6px; border-left: none; border-top: none; border-bottom-right-radius: 6px; }
+
+    /* Heading & Ganesh Invocation */
+    .ganesh-mantra {
+      text-align: center;
+      font-size: 14px;
+      letter-spacing: 3px;
+      color: var(--royal-maroon);
+      font-weight: 600;
+      margin-bottom: 22px;
+    }
+
+    .ganesh-icon {
+      font-size: 34px;
+      display: block;
+      margin-bottom: 6px;
+      color: var(--gold-primary);
+      filter: drop-shadow(0 2px 4px rgba(197, 155, 63, 0.3));
+    }
+
+    .parents-section {
+      text-align: center;
+      margin-bottom: 24px;
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.85;
+    }
+
+    .parent-name {
+      font-weight: 600;
+      color: var(--royal-maroon);
+      font-size: 16px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* Cute & Royal Couple Header */
+    .couple-title {
+      text-align: center;
+      margin: 25px 0;
+      padding: 15px 0;
+      border-top: 1px dashed rgba(197, 155, 63, 0.4);
+      border-bottom: 1px dashed rgba(197, 155, 63, 0.4);
+      background: radial-gradient(ellipse at center, rgba(249, 235, 234, 0.6) 0%, transparent 80%);
+    }
+
+    .groom, .bride {
+      font-family: 'Great Vibes', cursive;
+      font-size: 48px;
+      color: var(--royal-maroon);
+      line-height: 1.1;
+      text-shadow: 1px 1px 2px rgba(197, 155, 63, 0.2);
+    }
+
+    .alias {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-style: italic;
+      color: var(--gold-dark);
+      margin-top: 3px;
+      font-weight: 500;
+    }
+
+    .ampersand {
+      font-family: 'Great Vibes', cursive;
+      font-size: 38px;
+      color: var(--gold-primary);
+      margin: 2px 0;
+      display: block;
+    }
+
+    .sub-parent {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-top: 5px;
+      font-style: normal;
+    }
+
+    .cute-divider {
+      text-align: center;
+      color: var(--gold-primary);
+      font-size: 16px;
+      margin: 20px 0;
+      letter-spacing: 6px;
+    }
+
+    /* Carousel Section */
+    .gallery-section {
+      margin: 28px 0;
+      text-align: center;
+    }
+
+    .gallery-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 21px;
+      color: var(--royal-maroon);
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      height: 310px;
+      margin: 0 auto;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 3px solid #FFF;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.14), 0 0 0 1.5px var(--gold-primary);
+    }
+
+    .carousel-slide {
+      display: none;
+      width: 100%;
+      height: 100%;
+    }
+
+    .carousel-slide.active {
+      display: block;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0.4; }
+      to { opacity: 1; }
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--gold-primary);
+      color: var(--royal-maroon);
+      font-size: 18px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .carousel-btn:hover {
+      background: var(--gold-primary);
+      color: #fff;
+    }
+
+    .prev-btn { left: 10px; }
+    .next-btn { right: 10px; }
+
+    .album-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      padding: 10px 24px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #FFF6F0 0%, #F8E7DB 100%);
+      border: 1.5px solid var(--gold-primary);
+      color: var(--royal-maroon);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 4px 14px rgba(197, 155, 63, 0.18);
+      transition: all 0.3s ease;
+    }
+
+    .album-link-btn:hover {
+      background: var(--gold-primary);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(197, 155, 63, 0.3);
+    }
+
+    /* Countdown Timer */
+    .countdown-box {
+      background: linear-gradient(135deg, #FFF9F5 0%, #FBECE2 100%);
+      border: 1.5px solid rgba(197, 155, 63, 0.45);
+      border-radius: 14px;
+      padding: 18px;
+      margin: 25px 0;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(197, 155, 63, 0.12);
+    }
+
+    .countdown-title {
+      font-size: 12px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--royal-maroon);
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+
+    .countdown-grid {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .count-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 54px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid var(--gold-light);
+      border-radius: 10px;
+      padding: 8px 6px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.04);
+    }
+
+    .count-number {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--royal-maroon);
+      font-family: 'Playfair Display', serif;
+    }
+
+    .count-label {
+      font-size: 9.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+      margin-top: 2px;
+    }
+
+    /* Timeline & Itinerary */
+    .section-header {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      color: var(--royal-maroon);
+      margin: 30px 0 25px 0;
+      position: relative;
+    }
+
+    .section-header::after {
+      content: '❀';
+      display: block;
+      font-size: 15px;
+      color: var(--gold-primary);
+      margin-top: 4px;
+    }
+
+    .timeline {
+      position: relative;
+      margin: 0 auto 30px auto;
+      padding-left: 20px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 10px;
+      bottom: 10px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--gold-primary), var(--blush), var(--gold-primary));
+    }
+
+    .event-card {
+      position: relative;
+      margin-bottom: 26px;
+      padding-left: 22px;
+    }
+
+    .event-card::before {
+      content: '🌸';
+      position: absolute;
+      left: -19px;
+      top: 0px;
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    .event-date {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: var(--gold-dark);
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .event-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--royal-maroon);
+      margin-bottom: 5px;
+    }
+
+    .event-venue {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .venue-address {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .day-sublist {
+      background: #FFF7F2;
+      border: 1px solid #F1DEC9;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin: 10px 0;
+      font-size: 12.5px;
+      line-height: 1.8;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+
+    .day-sublist span {
+      font-weight: 600;
+      color: var(--royal-maroon);
+    }
+
+    /* Map Action Buttons */
+    .map-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      color: var(--royal-maroon);
+      text-decoration: none;
+      background: #FFF;
+      border: 1.2px solid var(--gold-primary);
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .map-btn:hover {
+      background: var(--gold-primary);
+      color: #fff;
+    }
+
+    /* RSVP & Compliments */
+    .compliments-section {
+      text-align: center;
+      margin-top: 35px;
+      padding-top: 24px;
+      border-top: 1px dashed var(--gold-primary);
+    }
+
+    .compliments-title {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .compliments-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--royal-maroon);
+      margin-bottom: 24px;
+    }
+
+    .rsvp-box {
+      background: linear-gradient(135deg, #FFFBF8 0%, #F9ECE4 100%);
+      border-radius: 14px;
+      padding: 18px;
+      text-align: center;
+      border: 1.5px solid rgba(197, 155, 63, 0.4);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+    }
+
+    .rsvp-title {
+      font-size: 13px;
+      letter-spacing: 2.5px;
+      font-weight: 700;
+      color: var(--royal-maroon);
+      margin-bottom: 12px;
+    }
+
+    .rsvp-contacts {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .rsvp-person {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      align-items: center;
+      color: var(--text-dark);
+      font-weight: 500;
+    }
+
+    .call-btn {
+      color: var(--royal-maroon);
+      text-decoration: none;
+      font-weight: 600;
+      background: #FFF;
+      padding: 3px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--gold-primary);
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+    }
+
+    .call-btn:hover {
+      background: var(--royal-maroon);
+      color: #fff;
+      border-color: var(--royal-maroon);
+    }
+
+    .closing-wishes {
+      text-align: center;
+      margin-top: 28px;
+      font-style: italic;
+      font-size: 14px;
+      color: var(--royal-maroon);
+      font-family: 'Playfair Display', serif;
+    }
+
+    @media (max-width: 480px) {
+      .envelope-wrapper {
+        width: 290px;
+        height: 205px;
+      }
+      .groom, .bride {
+        font-size: 40px;
+      }
+      .invitation-card {
+        padding: 24px 14px;
+      }
+      .carousel-container {
+        height: 230px;
+      }
+      .countdown-grid {
+        gap: 8px;
+      }
+      .count-item {
+        min-width: 48px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fullscreen Petals & Confetti Shower Canvas -->
+  <canvas id="petalsCanvas"></canvas>
+
+  <!-- Floating Audio Button -->
+  <button id="musicToggle" class="music-btn" title="Toggle Music">
+    <span id="musicIcon">🎵</span>
+    <span id="musicText">Play Music</span>
+  </button>
+
+  <audio id="bgMusic" loop preload="auto">
+    <source src="music.mp3" type="audio/mp3">
+  </audio>
+
+  <!-- Envelope Screen -->
+  <div id="envelopeSection">
+    <div class="envelope-wrapper" id="envelopeWrapper" onclick="openInvitation()">
+      <div class="envelope">
+        <div class="envelope-flap"></div>
+        <div class="wax-seal">PS</div>
+      </div>
+    </div>
+    <div class="tap-hint">✦ Tap the envelope to open ✦</div>
+  </div>
+
+  <!-- Invitation Card -->
+  <div id="wedding-card-container">
+    <div class="invitation-card">
+      <div class="inner-border">
+        <div class="corner-decor c-tl"></div>
+        <div class="corner-decor c-tr"></div>
+        <div class="corner-decor c-bl"></div>
+        <div class="corner-decor c-br"></div>
+
+        <!-- Ganesh Mantra -->
+        <div class="ganesh-mantra">
+          <span class="ganesh-icon">ॐ</span>
+          || श्री गणेशाय नमः ||
+        </div>
+
+        <!-- Parents Invite -->
+        <div class="parents-section">
+          <p>With the divine blessings of Almighty & Ancestors,</p>
+          <p class="parent-name">Smt. Preeti Saxena & Shri Rajesh Saxena</p>
+          <p>cordially invite you to celebrate the wedding ceremony of their beloved son</p>
+        </div>
+
+        <!-- Couple Names (Cute & Royal Typography) -->
+        <div class="couple-title">
+          <div class="groom">Pratham Saxena</div>
+          <div class="sub-parent">Son of Smt. Preeti Saxena & Shri Rajesh Saxena</div>
+          
+          <span class="ampersand">&</span>
+          
+          <div class="bride">Tanishka Sahu</div>
+          <span class="alias">(Vertika Sahu)</span>
+          <div class="sub-parent">Daughter of Smt. Shashi Sahu & Late Shri Manoj Kumar Sahu</div>
+        </div>
+
+        <!-- Cute Floral Motif -->
+        <div class="cute-divider">❦ ❀ ❦</div>
+
+        <!-- Engagement Photo Carousel -->
+        <div class="gallery-section">
+          <h4 class="gallery-title">Moments of Togetherness</h4>
+          <div class="carousel-container">
+            <div class="carousel-slide active">
+              <img src="photo1.JPG" alt="Engagement Photo 1">
+            </div>
+            <div class="carousel-slide">
+              <img src="photo2.JPG" alt="Engagement Photo 2">
+            </div>
+            <div class="carousel-slide">
+              <img src="photo3.JPG" alt="Engagement Photo 3">
+            </div>
+
+            <button class="carousel-btn prev-btn" onclick="prevSlide()" aria-label="Previous Photo">❮</button>
+            <button class="carousel-btn next-btn" onclick="nextSlide()" aria-label="Next Photo">❯</button>
+          </div>
+
+          <!-- Direct Google Photos Album Link -->
+          <div>
+            <a href="https://photos.app.goo.gl/6U9MDo6ohzWVG9VJ8" target="_blank" rel="noopener noreferrer" class="album-link-btn">
+              📸 View Full Engagement Album
+            </a>
+          </div>
+        </div>
+
+        <!-- Countdown Box -->
+        <div class="countdown-box">
+          <div class="countdown-title">Countdown to The Auspicious Moment</div>
+          <div class="countdown-grid">
+            <div class="count-item">
+              <span class="count-number" id="days">00</span>
+              <span class="count-label">Days</span>
+            </div>
+            <div class="count-item">
+              <span class="count-number" id="hours">00</span>
+              <span class="count-label">Hours</span>
+            </div>
+            <div class="count-item">
+              <span class="count-number" id="mins">00</span>
+              <span class="count-label">Mins</span>
+            </div>
+            <div class="count-item">
+              <span class="count-number" id="secs">00</span>
+              <span class="count-label">Secs</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Itinerary Section -->
+        <h3 class="section-header">Wedding Schedule</h3>
+
+        <div class="timeline">
+          <!-- Sangeet -->
+          <div class="event-card">
+            <div class="event-date">Wednesday, 2 December 2026</div>
+            <div class="event-name">Sangeet Ceremony</div>
+            <div class="event-venue">📍 Gwalior</div>
+          </div>
+
+          <!-- Mehendi -->
+          <div class="event-card">
+            <div class="event-date">Thursday, 3 December 2026</div>
+            <div class="event-name">Haldi & Mehndi Ceremony</div>
+            <div class="event-venue">📍 Gwalior</div>
+          </div>
+
+          <!-- Baarat Departure -->
+          <div class="event-card">
+            <div class="event-date">Thursday Night, 3 December 2026</div>
+            <div class="event-name">Baarat Departure (By Bus)</div>
+            <div class="venue-address">🕒 10:30 PM Departure from Gwalior to Kanpur</div>
+          </div>
+
+          <!-- Wedding Day & Lagun -->
+          <div class="event-card">
+            <div class="event-date">Friday, 4 December 2026</div>
+            <div class="event-name">The Wedding Ceremony</div>
+            
+            <div class="day-sublist">
+              <div>• <span>07:00 AM:</span> Baarat Arrival in Kanpur</div>
+              <div>• <span>11:00 AM:</span> Lagun Ceremony</div>
+              <div>• <span>06:30 PM:</span> Band Baaja & Baarat Procession from Stay</div>
+              <div>• <span>08:30 PM:</span> Arrival at Marriage Venue</div>
+              <div>• <span>09:00 PM - 09:30 PM:</span> Jaimala Ceremony</div>
+              <div>• <span>08:00 PM - 11:00 PM:</span> Dinner & Celebrations</div>
+            </div>
+
+            <div class="event-venue">📍 Utsav Resort</div>
+            <div class="venue-address">Haibatpur, Shuklaganj, Unnao (Kanpur)</div>
+            
+            <!-- Marriage Map Link -->
+            <a href="https://maps.app.goo.gl/YzNa5Y3R7bDEckhcA" target="_blank" rel="noopener noreferrer" class="map-btn">
+              🗺️ Open in Google Maps
+            </a>
+          </div>
+
+          <!-- Vidai -->
+          <div class="event-card">
+            <div class="event-date">Saturday, 5 December 2026</div>
+            <div class="event-name">Vidai Ceremony & Return</div>
+            <div class="venue-address">🕒 09:00 AM: Vidai & Return journey to Gwalior by night</div>
+          </div>
+
+          <!-- Reception -->
+          <div class="event-card">
+            <div class="event-date">Sunday, 6 December 2026</div>
+            <div class="event-name">Grand Reception</div>
+            <div class="venue-address">🕒 06:00 PM Onwards</div>
+            <div class="event-venue">📍 Satkar Guest House</div>
+            <div class="venue-address">Near Income Tax Office, City Center, Gwalior</div>
+            
+            <!-- Reception Map Link -->
+            <a href="https://maps.app.goo.gl/nRCCDfVQxDRHR8YQ7" target="_blank" rel="noopener noreferrer" class="map-btn">
+              🗺️ Open in Google Maps
+            </a>
+          </div>
+        </div>
+
+        <!-- RSVP & Compliments -->
+        <div class="compliments-section">
+          <div class="compliments-title">With Best Compliments From</div>
+          <div class="compliments-name">Saxena Family</div>
+
+          <div class="rsvp-box">
+            <div class="rsvp-title">R. S. V. P.</div>
+            <div class="rsvp-contacts">
+              <div class="rsvp-person">
+                <span>Rajesh Saxena:</span>
+                <a href="tel:9891979025" class="call-btn">📞 9891979025</a>
+              </div>
+              <div class="rsvp-person">
+                <span>Pratham Saxena:</span>
+                <a href="tel:8595135558" class="call-btn">📞 8595135558</a>
+              </div>
+              <div class="rsvp-person">
+                <span>Bhumit Saxena:</span>
+                <a href="tel:8700401213" class="call-btn">📞 8700401213</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="closing-wishes">"We eagerly look forward to celebrating our special day with you and your family!"</p>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* --- Realistic Rose Petals Shower Animation --- */
+    const canvas = document.getElementById('petalsCanvas');
+    const ctx = canvas.getContext('2d');
+    let petals = [];
+    let animationRunning = false;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const petalColors = [
+      { fill: '#F8BBD0', shadow: '#F48FB1' }, // Soft rose pink
+      { fill: '#F48FB1', shadow: '#EC407A' }, // Rich rose pink
+      { fill: '#FFCDD2', shadow: '#EF9A9A' }, // Blush pink
+      { fill: '#E57373', shadow: '#D32F2F' }, // Crimson petal
+      { fill: '#F5D77F', shadow: '#D4AF37' }  // Golden confetti flake
+    ];
+
+    class Petal {
+      constructor(isBurst = false) {
+        this.reset(isBurst);
+      }
+
+      reset(isBurst = false) {
+        this.x = isBurst ? window.innerWidth / 2 + (Math.random() * 200 - 100) : Math.random() * canvas.width;
+        this.y = isBurst ? window.innerHeight / 2 + (Math.random() * 100 - 50) : -30;
+        this.size = Math.random() * 14 + 10;
+        this.speedX = isBurst ? (Math.random() - 0.5) * 12 : (Math.random() - 0.5) * 2;
+        this.speedY = isBurst ? Math.random() * -12 - 4 : Math.random() * 1.8 + 1.2;
+        this.rotation = Math.random() * 360;
+        this.rotSpeed = (Math.random() - 0.5) * 3;
+        this.color = petalColors[Math.floor(Math.random() * petalColors.length)];
+        this.opacity = Math.random() * 0.4 + 0.6;
+        this.flip = Math.random() * Math.PI;
+        this.flipSpeed = Math.random() * 0.04 + 0.02;
+        this.gravity = isBurst ? 0.25 : 0;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.speedY += this.gravity;
+        this.rotation += this.rotSpeed;
+        this.flip += this.flipSpeed;
+
+        // If burst slowed down, transition to gentle falling
+        if (this.gravity > 0 && this.speedY > 2.5) {
+          this.gravity = 0;
+          this.speedY = Math.random() * 1.6 + 1.2;
+          this.speedX = (Math.random() - 0.5) * 2;
+        }
+
+        // Wrap around top to bottom for gentle ongoing shower
+        if (this.y > canvas.height + 40) {
+          this.reset(false);
+        }
+      }
+
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate((this.rotation * Math.PI) / 180);
+        ctx.scale(Math.cos(this.flip), 1);
+        ctx.globalAlpha = this.opacity;
+
+        // Draw cute curved petal
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.bezierCurveTo(-this.size / 2, -this.size / 2, -this.size, this.size / 3, 0, this.size);
+        ctx.bezierCurveTo(this.size, this.size / 3, this.size / 2, -this.size / 2, 0, 0);
+        
+        ctx.fillStyle = this.color.fill;
+        ctx.fill();
+
+        ctx.strokeStyle = this.color.shadow;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+
+        ctx.restore();
+      }
+    }
+
+    function triggerPetalShower() {
+      petals = [];
+      // Initial celebratory burst of 75 petals from envelope center
+      for (let i = 0; i < 75; i++) {
+        petals.push(new Petal(true));
+      }
+      // Ongoing gentle rain of 30 petals
+      for (let i = 0; i < 30; i++) {
+        petals.push(new Petal(false));
+      }
+
+      if (!animationRunning) {
+        animationRunning = true;
+        animatePetals();
+      }
+    }
+
+    function animatePetals() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      petals.forEach(petal => {
+        petal.update();
+        petal.draw();
+      });
+      requestAnimationFrame(animatePetals);
+    }
+
+    /* --- Envelope Tap & Card Reveal Logic --- */
+    function openInvitation() {
+      const envelope = document.getElementById('envelopeWrapper');
+      const cardContainer = document.getElementById('wedding-card-container');
+      const envelopeSection = document.getElementById('envelopeSection');
+
+      envelope.classList.add('open');
+      playMusic();
+
+      // Start flower shower right when the envelope begins to open
+      setTimeout(() => {
+        triggerPetalShower();
+      }, 300);
+
+      // Transition to card smoothly
+      setTimeout(() => {
+        envelopeSection.style.display = 'none';
+        cardContainer.classList.add('visible');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 800);
+    }
+
+    /* --- Audio Playback Handler --- */
+    const bgAudio = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicToggle');
+    const musicIcon = document.getElementById('musicIcon');
+    const musicText = document.getElementById('musicText');
+    let isPlaying = false;
+
+    function playMusic() {
+      bgAudio.play().then(() => {
+        isPlaying = true;
+        musicIcon.textContent = '🔊';
+        musicText.textContent = 'Pause Music';
+      }).catch(err => {
+        console.log("Audio waiting for user click permission:", err);
+      });
+    }
+
+    musicBtn.addEventListener('click', () => {
+      if (isPlaying) {
+        bgAudio.pause();
+        isPlaying = false;
+        musicIcon.textContent = '🔇';
+        musicText.textContent = 'Play Music';
+      } else {
+        playMusic();
+      }
+    });
+
+    /* --- Countdown Timer (4 Dec 2026, 11:00 AM) --- */
+    const weddingDate = new Date('December 4, 2026 11:00:00').getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = weddingDate - now;
+
+      if (distance > 0) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('days').innerText = String(days).padStart(2, '0');
+        document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+        document.getElementById('mins').innerText = String(minutes).padStart(2, '0');
+        document.getElementById('secs').innerText = String(seconds).padStart(2, '0');
+      } else {
+        document.getElementById('days').innerText = '00';
+        document.getElementById('hours').innerText = '00';
+        document.getElementById('mins').innerText = '00';
+        document.getElementById('secs').innerText = '00';
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    /* --- Image Carousel Logic --- */
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel-slide');
+
+    function showSlide(index) {
+      slides.forEach((s) => s.classList.remove('active'));
+      currentSlide = (index + slides.length) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    function nextSlide() {
+      showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      showSlide(currentSlide - 1);
+    }
+
+    // Auto-advance carousel every 3.5 seconds
+    setInterval(nextSlide, 3500);
+  </script>
+</body>
+</html>
