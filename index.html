@@ -554,6 +554,7 @@
       font-size: 13px;
       font-weight: 600;
       color: var(--text-dark);
+      margin-top: 4px;
     }
 
     .venue-address {
@@ -592,11 +593,19 @@
       font-weight: 600;
       transition: all 0.2s ease;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      margin-top: 2px;
+      margin-bottom: 6px;
     }
 
     .map-btn:hover {
       background: var(--gold-primary);
       color: #fff;
+    }
+
+    .venue-group {
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px dashed rgba(197, 155, 63, 0.35);
     }
 
     /* RSVP & Compliments */
@@ -817,57 +826,82 @@
         <h3 class="section-header">Wedding Schedule</h3>
 
         <div class="timeline">
-          <!-- Sangeet -->
+          <!-- 1 Dec: Ganesh & Matri Poojan -->
           <div class="event-card">
-            <div class="event-date">Wednesday, 2 December 2026</div>
-            <div class="event-name">Sangeet Ceremony</div>
-            <div class="event-venue">📍 Gwalior</div>
-          </div>
-
-          <!-- Mehendi -->
-          <div class="event-card">
-            <div class="event-date">Thursday, 3 December 2026</div>
-            <div class="event-name">Haldi & Mehndi Ceremony</div>
-            <div class="event-venue">📍 Gwalior</div>
-          </div>
-
-          <!-- Baarat Departure -->
-          <div class="event-card">
-            <div class="event-date">Thursday Night, 3 December 2026</div>
-            <div class="event-name">Baarat Departure (By Bus)</div>
-            <div class="venue-address">🕒 10:30 PM Departure from Gwalior to Kanpur</div>
-          </div>
-
-          <!-- Wedding Day & Lagun -->
-          <div class="event-card">
-            <div class="event-date">Friday, 4 December 2026</div>
-            <div class="event-name">The Wedding Ceremony</div>
-            
-            <div class="day-sublist">
-              <div>• <span>07:00 AM:</span> Baarat Arrival in Kanpur</div>
-              <div>• <span>11:00 AM:</span> Lagun Ceremony</div>
-              <div>• <span>06:30 PM:</span> Band Baaja & Baarat Procession from Stay</div>
-              <div>• <span>08:30 PM:</span> Arrival at Marriage Venue</div>
-              <div>• <span>09:00 PM - 09:30 PM:</span> Jaimala Ceremony</div>
-              <div>• <span>08:00 PM - 11:00 PM:</span> Dinner & Celebrations</div>
-            </div>
-
-            <div class="event-venue">📍 Utsav Resort</div>
-            <div class="venue-address">Haibatpur, Shuklaganj, Unnao (Kanpur)</div>
-            
-            <a href="https://maps.app.goo.gl/YzNa5Y3R7bDEckhcA" target="_blank" rel="noopener noreferrer" class="map-btn">
+            <div class="event-date">Tuesday, 1 December 2026</div>
+            <div class="event-name">Ganesh & Matri Poojan</div>
+            <div class="event-venue">📍 Shri Ram Dharamshala</div>
+            <div class="venue-address">Madhavganj, Gwalior</div>
+            <a href="https://maps.app.goo.gl/hUH375AuV8FRibAa6" target="_blank" rel="noopener noreferrer" class="map-btn">
               🗺️ Open in Google Maps
             </a>
           </div>
 
-          <!-- Vidai -->
+          <!-- 2 Dec: Mehendi & Mahila Sangeet -->
+          <div class="event-card">
+            <div class="event-date">Wednesday, 2 December 2026</div>
+            <div class="event-name">Mehndi & Mahila Sangeet</div>
+            <div class="event-venue">📍 Shri Ram Dharamshala</div>
+            <div class="venue-address">Madhavganj, Gwalior</div>
+            <a href="https://maps.app.goo.gl/hUH375AuV8FRibAa6" target="_blank" rel="noopener noreferrer" class="map-btn">
+              🗺️ Open in Google Maps
+            </a>
+          </div>
+
+          <!-- 3 Dec: Mandap, Haldi & Baarat Departure -->
+          <div class="event-card">
+            <div class="event-date">Thursday, 3 December 2026</div>
+            <div class="event-name">Mandap, Haldi & Baarat Departure</div>
+            <div class="day-sublist">
+              <div>• <span>Day Ceremonies:</span> Mandap & Haldi Ceremony</div>
+              <div>• <span>08:00 PM:</span> Baarat Departure from Shri Ram Dharamshala, Gwalior for Kanpur via Sanatan dharam mandir near Achleshwar temple </div>
+            </div>
+            <div class="event-venue">📍 Shri Ram Dharamshala</div>
+            <div class="venue-address">Madhavganj, Gwalior</div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Shri+Ram+Dharamshala+Madhavganj+Gwalior" target="_blank" rel="noopener noreferrer" class="map-btn">
+              🗺️ Open in Google Maps
+            </a>
+          </div>
+
+          <!-- 4 Dec: Wedding Day & Lagun -->
+          <div class="event-card">
+            <div class="event-date">Friday, 4 December 2026</div>
+            <div class="event-name">Lagun & The Wedding Ceremony</div>
+            
+            <div class="day-sublist">
+              <div>• <span>07:00 AM:</span> Baarat Arrival at Surya Galaxy, Kanpur (Guest Stay)</div>
+              <div>• <span>11:00 AM:</span> Morning Lagun Ceremony at Utsav Resort</div>
+              <div>• <span>06:30 PM:</span> Band Baaja & Baarat Procession from Surya Galaxy to Utsav Resort</div>
+              <div>• <span>08:30 PM:</span> Grand Arrival at Marriage Venue</div>
+              <div>• <span>09:00 PM - 09:30 PM:</span> Jaimala Ceremony</div>
+              <div>• <span>08:00 PM - 11:00 PM:</span> Dinner & Celebrations</div>
+            </div>
+
+            <div class="venue-group">
+              <div class="event-venue">📍 Baarat Stay: Surya Galaxy</div>
+              <div class="venue-address">Marahala Chauraha Shuklaganj, Unnao (Kanpur)</div>
+              <a href="https://maps.app.goo.gl/YBgwUZe2Fr7WAGEF6" target="_blank" rel="noopener noreferrer" class="map-btn">
+                🗺️ Surya Galaxy on Maps
+              </a>
+            </div>
+
+            <div class="venue-group">
+              <div class="event-venue">📍 Lagun & Marriage Venue: Utsav Resort</div>
+              <div class="venue-address">Haibatpur, Shuklaganj, Unnao (Kanpur)</div>
+              <a href="https://maps.app.goo.gl/D4fPEf68RriKiiR98" target="_blank" rel="noopener noreferrer" class="map-btn">
+                🗺️ Utsav Resort on Maps
+              </a>
+            </div>
+          </div>
+
+          <!-- 5 Dec: Vidai -->
           <div class="event-card">
             <div class="event-date">Saturday, 5 December 2026</div>
             <div class="event-name">Vidai Ceremony & Return</div>
-            <div class="venue-address">🕒 09:00 AM: Vidai & Return journey to Gwalior by night</div>
+            <div class="venue-address">🕒 09:00 AM: Vidai & Return journey to Gwalior back by night</div>
           </div>
 
-          <!-- Reception -->
+          <!-- 6 Dec: Reception -->
           <div class="event-card">
             <div class="event-date">Sunday, 6 December 2026</div>
             <div class="event-name">Grand Reception</div>
@@ -875,8 +909,8 @@
             <div class="event-venue">📍 Satkar Guest House</div>
             <div class="venue-address">Near Income Tax Office, City Center, Gwalior</div>
             
-            <a href="https://maps.app.goo.gl/nRCCDfVQxDRHR8YQ7" target="_blank" rel="noopener noreferrer" class="map-btn">
-              🗺️ Open in Google Maps
+            <a href="https://maps.app.goo.gl/T2gYoEBripqoNfrGA" target="_blank" rel="noopener noreferrer" class="map-btn">
+              🗺️ Satkar Guest House on Maps
             </a>
           </div>
         </div>
